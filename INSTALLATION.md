@@ -10,7 +10,7 @@ Latest NASM download: <https://www.nasm.us/>
 4. Move or copy-paste the 'linuxALR' bash script to the 'bin' folder
 5. Open terminal and type in `chmod +x ~/bin/macALR`
 6. Then search for a file called `.bachrc` and open it using any text editor
-7. Add `export PATH="/usr/local/share/rsi/idl/bin:$PATH"` to the _end of the file_
+7. Add `export PATH="/usr/local/share/rsi/idl/bin:$PATH"` to the _end_ of the file
 8. Go to terminal and type in `chmod +x ~/bin/macALR`
 9. Then type in `linuxALR`
 10. If see this, `linuxALR: Fatal: No input file specified` skip to step 12
