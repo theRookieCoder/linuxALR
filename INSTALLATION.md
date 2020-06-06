@@ -15,4 +15,4 @@ Latest NASM download: <https://www.nasm.us/>
 9. If see this, `linuxALR: Fatal: No input file specified` skip to step 11
 10. Else, type in `python3` and `nasm` and ensure that they do not give command not found errors
 11. Now you are ready to use macALR! Be reminded that the `linuxALR` you type into terminal is case sensitive (if you can type in `linuxalr` and it will not work
-12. For information on how to use the script, read the `README.md` or type in `lnuxALR -h`
+12. For information on how to use the script, read the `README.md` or type in `linuxALR -h`
