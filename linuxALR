@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+import os
+import sys
+from platform import system
+VERSION = "0.2"
+APPNAME = "linuxALR"
+
+# Check if the operating system is Darwin (macOS)
+if system() != "Linux":
+    print(f"{APPNAME}: Fatal: {APPNAME} is made for Linux. {APPNAME} detected you are not running Linux")
+    exit(1)
+
+# Check of input file specified
+try:
+    file_name = str(sys.argv[1])
+except Exception:
+    print(f"{APPNAME}: Fatal: No input file specified")
+    exit()
+
+if sys.argv[1] == "-h":
+    print("\nIntroduction:")
+    print(f"{APPNAME} is a shortcut/tool/script to make life easier for people getting into x86-64 assembly.\nIt quickly assembles, links and runs in one command")
+    print("\nRunning the script:")
+    print(f"To run {APPNAME}, type in '{APPNAME} path/to/file.extension or file.extension'.\nTo check the version number, type in '{APPNAME} -v'.\nTo access this help page, type in '{APPNAME} -h'.\nThere are no other options or arguments that {APPNAME} accepts")
+    print("\nDescription:")
+    print(f"This program runs 'nasm' with the format set to elf64.\nThen it links the file using 'ld'.\nFinally it runs the program using './'.\nTo not clutter the directory, {APPNAME} deletes the generated object and executable files.")
+    print("\nExample:")
+    print(f"For this example, lets call the assembly file 'example.asm' with the path '~/assemblyPrograms/example.asm'.\nWe assume that we are currently in the home directory.\nRunning '{APPNAME} example.asm' will not work as the file is not in the home directory.\nSo we can type the path in by typing '{APPNAME} ~/assemblyPrograms/example.asm'.\nWe can also 'cd' into the 'assemblyPrograms' directory then type in '{APPNAME} example.asm\n")
+    exit(1)
+elif sys.argv[1] == "-v":
+	print(f"{APPNAME} version {VERSION}")
+	exit(1)
+
+# Check if input file can be found
+if os.path.isfile(file_name) == False:
+    print(f"{APPNAME}: Fatal: Input file cannot be found")
+    exit(1)
+
+# First run NASM then check if it worked
+os.system(f"nasm -f elf64 {file_name} -o output.o")
+if os.path.isfile("output.o") == False:
+    print(f"{APPNAME}: Fatal: NASM assembling failed")
+    exit(1)
+
+# Next run ld then check if it worked
+os.system(f"ld -o output output.o")
+if os.path.isfile(file_name) == False:
+    print(f"{APPNAME}: Fatal: ld linking failed")
+    os.remove(f"output.o")
+    exit(1)
+
+# Lastly run the executable. We cannot check of it worked
+os.system(f"./output")
+
+# Deletes object and executable files after running.
+os.remove("output")
+os.remove("output.o")
